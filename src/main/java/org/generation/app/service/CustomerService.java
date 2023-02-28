@@ -25,4 +25,11 @@ public class CustomerService implements ICustomerService{
 		return allCustomers;
 	}
 
+	@Override
+	public Customer getCustomerById(long idCustomer) { 
+		return customerRepository.findById(idCustomer)
+				.orElseThrow( () -> 
+					new IllegalStateException("The user does not exist with id: " + idCustomer));
+	}
+
 }

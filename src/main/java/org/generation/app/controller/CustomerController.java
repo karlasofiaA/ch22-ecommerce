@@ -23,4 +23,9 @@ public class CustomerController {
 		return customerService.getAllActiveCustomers();
 	}
 	
+	@GetMapping("{id}") //localhost:8080/api/customers/2
+	public Customer getCustomerById(@PathVariable("id") long idCustomer) {
+		return customerService.getCustomerById(idCustomer);
+	}
+	
 }
