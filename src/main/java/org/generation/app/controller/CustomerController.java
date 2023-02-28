@@ -18,4 +18,9 @@ public class CustomerController {
 		return customerService.getAllCustomer();
 	}
 	
+	@GetMapping("active") //localhost:8080/api/customers/active
+	public List<Customer> getAllActiveCustomers(){
+		return customerService.getAllActiveCustomers();
+	}
+	
 }
