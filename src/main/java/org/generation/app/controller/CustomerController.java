@@ -40,8 +40,17 @@ public class CustomerController {
 	}
 	
 	@PostMapping //localhost:8080/api/customers
-	public Customer setNewCustomer (@RequestBody Customer customer) {
-		return customerService.setCustomer(customer);
+	public ResponseEntity<?> setNewCustomer (@RequestBody Customer customer) {
+		try {
+			return new ResponseEntity<Customer>(
+					customerService.setCustomer(customer), //Objeto con el que respondes
+					HttpStatus.CREATED); //Estatus de la respuesta OK
+			
+		} catch (IllegalStateException e) {
+			return new ResponseEntity<String>(
+					e.getMessage(),
+					HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 }

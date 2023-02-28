@@ -9,4 +9,6 @@ public interface ICustomerRepository extends CrudRepository<Customer, Long> {
 
 	//Regresar todos los clientes que son activos
 	List<Customer> findAllByActive(boolean stateOfActive);
+	//Busca la existencia del cliente
+	boolean existsByEmail(String email);
 }
