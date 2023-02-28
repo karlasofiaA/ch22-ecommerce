@@ -5,6 +5,8 @@ import java.util.List;
 import org.generation.app.model.Customer;
 import org.generation.app.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/customers")
@@ -24,8 +26,17 @@ public class CustomerController {
 	}
 	
 	@GetMapping("{id}") //localhost:8080/api/customers/2
-	public Customer getCustomerById(@PathVariable("id") long idCustomer) {
-		return customerService.getCustomerById(idCustomer);
+	public ResponseEntity<?> getCustomerById(@PathVariable("id") long idCustomer) {
+		//Manejo de excepciones
+		try {
+			return new ResponseEntity<Customer>(
+					customerService.getCustomerById(idCustomer), //Objeto con el que respondes
+					HttpStatus.OK); //Estatus de la respuesta OK
+		} catch (IllegalStateException e) {
+			return new ResponseEntity<String>(
+					e.getMessage(),
+					HttpStatus.NOT_FOUND);
+		}
 	}
 	
 }
