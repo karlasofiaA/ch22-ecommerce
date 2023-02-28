@@ -12,4 +12,5 @@ public interface ICustomerService {
 
 	public Customer getCustomerById(long idCustomer);
 
+	public Customer setCustomer(Customer customer);
 }

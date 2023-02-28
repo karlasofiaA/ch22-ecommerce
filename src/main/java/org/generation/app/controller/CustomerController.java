@@ -39,4 +39,9 @@ public class CustomerController {
 		}
 	}
 	
+	@PostMapping //localhost:8080/api/customers
+	public Customer setNewCustomer (@RequestBody Customer customer) {
+		return customerService.setCustomer(customer);
+	}
+	
 }
