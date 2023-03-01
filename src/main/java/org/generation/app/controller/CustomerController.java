@@ -53,4 +53,30 @@ public class CustomerController {
 		}
 	}
 	
+	@PutMapping
+	public ResponseEntity<?> updateCustomer(@RequestBody Customer customer){
+		try {
+			return new ResponseEntity<Customer>(
+					customerService.updateCustomer(customer), //Objeto con el que respondes
+					HttpStatus.CREATED); //Estatus de la respuesta OK
+			
+		} catch (IllegalStateException e) {
+			return new ResponseEntity<String>(
+					e.getMessage(),
+					HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@DeleteMapping("{id}") //localhost:8080/api/customers/2
+	public ResponseEntity<?> deleteCustomerById(@PathVariable("id") long idCustomer) {
+		try {
+			return new ResponseEntity<String>(
+					customerService.deleteCustomerById(idCustomer), 
+					HttpStatus.OK);													
+		} catch (IllegalStateException e) {
+			return new ResponseEntity<String>(e.getMessage() , HttpStatus.NOT_FOUND );
+		}
+	}
+
+	
 }
