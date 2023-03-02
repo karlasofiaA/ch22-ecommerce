@@ -8,6 +8,7 @@ import org.generation.app.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,11 +25,13 @@ public class CustomerController {
 	@Autowired
 	ICustomerService customerService;
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')") // Paso 9. Autorizar la solicitud solo para ADMIN
 	@GetMapping //localhost:8080/api/customers
 	public List<CustomerDto> getAllCustomers(){
 		return customerService.getAllCustomerDto();		
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')") // Paso 9. Autorizar la solicitud solo para ADMIN
 	@GetMapping("active") //localhost:8080/api/customers/active
 	public List<Customer> getAllActiveCustomers(){
 		return customerService.getAllActiveCustomers();

@@ -1,5 +1,7 @@
 package org.generation.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,6 +26,7 @@ public class Address {
 	@Column ( name =  "city", nullable = false, updatable = false,  unique = true, length = FIELDS_MAX_LENGTH)
 	private String city;
 
+	@JsonIgnore //Ignorar el dato al momento peticiones get
 	@ManyToOne
 	@JoinColumn(name="fk_id_customer")
 	private Customer fkIdCustomer; //Definimos de acuerdo a la entidad
